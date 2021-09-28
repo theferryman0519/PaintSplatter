@@ -150,6 +150,7 @@ public class Buttons02 : MonoBehaviour {
 					PlayerDatabase.PlayerCoinAmount = jsonArraySplitTwo[15].Trim().ToString();
 					PlayerDatabase.PlayerDailyLogin = jsonArraySplitTwo[17].Trim().ToString();
 					PlayerDatabase.PlayerCollectLevelReward = jsonArraySplitTwo[19].Trim().ToString();
+					
 					// Go to Main Menu
 					Scene03LoadRun.Scene03Load();
                 }
@@ -191,10 +192,13 @@ public class Buttons02 : MonoBehaviour {
 	}
 	
 	public IEnumerator SettingPlayer() {
+		PlayerDatabase.PlayerDailyLogin = System.DateTime.Now.ToString("MM/dd/yyyy");
+
 		WWWForm SettingPlayerForm = new WWWForm();
 		SettingPlayerForm.AddField("PlayerUsername", PlayerDatabase.PlayerUsername);
 		SettingPlayerForm.AddField("PlayerFirstName", PlayerDatabase.PlayerFirstName);
 		SettingPlayerForm.AddField("PlayerFavArtist", PlayerDatabase.PlayerFavArtist);
+		SettingPlayerForm.AddField("PlayerDailyLogin", PlayerDatabase.PlayerDailyLogin);
 
 		using (UnityWebRequest SettingPlayerWWW = UnityWebRequest.Post("http://www.theferryman.org/PaintSplatter/PHPSettingPlayer.php", SettingPlayerForm)) {
             yield return SettingPlayerWWW.SendWebRequest();
@@ -211,7 +215,6 @@ public class Buttons02 : MonoBehaviour {
 					PlayerDatabase.PlayerVsPlayerWin = "0";
 					PlayerDatabase.PlayerVsPlayerLoss = "0";
 					PlayerDatabase.PlayerCoinAmount = "0";
-					PlayerDatabase.PlayerDailyLogin = "0";
 					PlayerDatabase.PlayerCollectLevelReward = "0";
 					PlayerDatabase.CollectedArtwork001 = "0";
 					PlayerDatabase.CollectedArtwork002 = "0";
